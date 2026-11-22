@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.16)
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(scan_wifi_csi)

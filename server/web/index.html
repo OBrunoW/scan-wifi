@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scan-wifi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #000000; }
+    #canvas-wrap { position: absolute; inset: 0; background: #000000; }
+    canvas { display: block; width: 100%; height: 100%; background: #000000; }
+  </style>
+</head>
+<body class="text-slate-100 font-sans">
+  <div id="canvas-wrap"></div>
+
+  <header class="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-black/75 px-3 py-1 font-mono text-[11px] backdrop-blur-sm">
+    <div class="flex items-center gap-3">
+      <span class="text-slate-500">udp <span id="udp-status" class="text-amber-300">—</span></span>
+      <span class="text-slate-500">ml <span id="ml-status" class="text-amber-300">—</span></span>
+      <span class="text-slate-500">ws <span id="ws-status" class="text-amber-300">—</span></span>
+    </div>
+    <div class="flex items-center gap-3 tabular-nums">
+      <span class="text-slate-500">service <span class="text-slate-200">scan-wifi</span></span>
+      <span class="text-slate-500">csi_hz <span id="csi-rate" class="text-slate-200">0.0</span></span>
+      <span class="text-slate-500">room_m <span id="room-size" class="text-slate-200">—</span></span>
+      <span class="text-slate-500">people <span id="people-count" class="text-slate-200">0</span></span>
+      <button id="calibration-toggle" type="button" class="pointer-events-auto border border-white/20 px-2 py-0.5 text-slate-200 hover:bg-white/10">calibrar</button>
+      <button id="settings-toggle" type="button" class="pointer-events-auto border border-white/20 px-2 py-0.5 text-slate-200 hover:bg-white/10">ajustes</button>
+    </div>
+  </header>
+
+  <div id="settings-panel"></div>
+  <div id="calibration-panel"></div>
+  <div id="hud" class="pointer-events-none absolute bottom-2 left-3 z-10 font-mono text-[10px] text-slate-500"></div>
+
+  <script type="module" src="/js/app.js?v=wire-2"></script>
+</body>
+</html>

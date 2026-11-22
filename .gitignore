@@ -1,0 +1,17 @@
+.vscode/
+.idea/
+*.log
+.env
+.env.prod
+inference/.venv/
+**/__pycache__/
+*.pyc
+server/scan-wifi
+backend/scan-wifi
+inference/data/*.npy
+inference/data/*.json
+!inference/data/.gitkeep
+
+specs/
+.claude/
+CLAUDE.md

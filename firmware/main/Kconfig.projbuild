@@ -1,0 +1,37 @@
+menu "Scan WiFi CSI"
+
+    config CSI_WIFI_SSID
+        string "WiFi SSID"
+        default "Godi Transportes"
+
+    config CSI_WIFI_PASSWORD
+        string "WiFi Password"
+        default "Godi2026"
+
+    config CSI_NODE_ID
+        string "Node ID (ESP_NODE_01 / ESP_NODE_02)"
+        default "ESP_NODE_01"
+
+    config CSI_UDP_HOST
+        string "Host do servidor Go (IP)"
+        default "192.168.1.26"
+
+    config CSI_UDP_PORT
+        int "Porta UDP CSI"
+        default 9001
+        range 1024 65535
+
+    config CSI_ENABLE_UART
+        bool "Tambem enviar CSI na UART (legado)"
+        default n
+
+    config CSI_UART_BAUD
+        int "UART baud rate"
+        default 115200
+
+    config CSI_UART_TX_QUEUE_LEN
+        int "Tamanho da fila CSI"
+        default 32
+        range 4 128
+
+endmenu

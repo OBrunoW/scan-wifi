@@ -1,0 +1,17 @@
+**/.env
+**/.env.*
+.git
+.claude
+.vscode
+.idea
+specs
+CLAUDE.md
+build
+firmware
+**/.venv
+**/__pycache__
+**/*.pyc
+inference/data
+inference/weights
+server/scan-wifi
+**/node_modules

@@ -1,0 +1,68 @@
+name: scan-wifi
+
+services:
+  inference:
+    build:
+      context: .
+      dockerfile: inference/Dockerfile
+    image: scan-wifi-inference:local
+    network_mode: host
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      HOST_BIND: ${HOST_BIND:-127.0.0.1}
+      PORT: ${INFERENCE_PORT:-8790}
+      DEVICE: ${DEVICE:-cuda}
+    volumes:
+      - ./inference/data:/app/inference/data:z
+      - ./inference/weights:/app/inference/weights:z
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:%s/health' % os.environ['PORT'], timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 120s
+    restart: unless-stopped
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: scan-wifi-server:local
+    network_mode: host
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      HOST_BIND: ${HOST_BIND:-127.0.0.1}
+      PORT: ${PORT:-8787}
+      INFERENCE_SERVER_URL: http://127.0.0.1:${INFERENCE_PORT:-8790}
+      CSI_STIM: ${CSI_STIM:-}
+    command:
+      - -router
+      - ${ROUTER:-192.168.1.1}
+      - -port
+      - ${PORT:-8787}
+      - -room-w
+      - ${ROOM_W:-8}
+      - -room-d
+      - ${ROOM_D:-12}
+      - -udp
+      - ${CSI_UDP:-:9001}
+      - -stim
+      - ${CSI_STIM:-}
+      - -inference
+      - http://127.0.0.1:${INFERENCE_PORT:-8790}
+    depends_on:
+      inference:
+        condition: service_healthy
+    restart: unless-stopped

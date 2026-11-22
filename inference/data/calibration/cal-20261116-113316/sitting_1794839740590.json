@@ -1,0 +1,21 @@
+{
+  "posture": "sitting",
+  "packets": 50,
+  "shape_amp": [
+    50,
+    32
+  ],
+  "ts": 1794839740590,
+  "xyz": {
+    "x": 1.6000000000000005,
+    "y": 0.35,
+    "z": 0.9000000000000001
+  },
+  "profile": "adult",
+  "meta": {
+    "label": "M6",
+    "calibration_id": "cal-20261116-113316",
+    "window_index": 4,
+    "discarded": false
+  }
+}
